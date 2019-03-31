@@ -70,6 +70,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+  assets:
+    - assets/images/Ciudad1.jpeg
+    - assets/images/LaPaz1.jpg
+    - assets/images/LaPaz2.jpg
+
   fonts:
     - family: Handlee
       fonts:

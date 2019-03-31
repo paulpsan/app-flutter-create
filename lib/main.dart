@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget{
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
+
         ),
       ),
     );
