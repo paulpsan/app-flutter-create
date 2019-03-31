@@ -15,8 +15,13 @@ class MyApp extends StatelessWidget{
           title: Text("Tic Tac Toe"),
         ),
         body: Text(
-          'Hola, Mundo !',
+          'Hola, Mundo ! Lorem ipsum',
           textDirection: TextDirection.ltr,
+          style: TextStyle(
+            fontFamily: "Handlee",
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
