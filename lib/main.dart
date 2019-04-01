@@ -2,91 +2,109 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: "flutter app",
       home: Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.arrow_back),
           title: Text("Tic Tac Toe"),
         ),
-/*        body: Text(
-          'Hola, Mundo ! Lorem ipsum',
-          textDirection: TextDirection.ltr,
-          style: TextStyle(
-            fontFamily: "Handlee",
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
-
-        ),*/
-
-        body: Stack(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Column(
+            Center(
+              child: Text('Tic Tac Toe!'),
+            ),
+            ActionButtonStarComputer(false),
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RowButtonAction(),
                 RowButtonAction(),
                 RowButtonAction(),
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: null,
+                  child: Text('New Game'),
+                ),
+              ],
             )
           ],
         ),
-
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            height: 50.0,
+          ),
+        ),
       ),
     );
   }
-
 }
 
-class RowButtonAction extends StatelessWidget{
+class RowButtonAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ActionButtonStarComputer(),
-        ActionButtonStarComputer(),
-        ActionButtonStarComputer(),
+        ActionButtonStarComputer(true),
+        ActionButtonStarComputer(true),
+        ActionButtonStarComputer(true),
       ],
     );
   }
-
 }
 
-class ActionButtonStarComputer extends StatefulWidget{
+class ActionButtonStarComputer extends StatefulWidget {
+  bool stateButton;
+  ActionButtonStarComputer(this.stateButton) {}
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
 
     return _ActionButtonStarComputer();
   }
-
 }
-class _ActionButtonStarComputer extends State<ActionButtonStarComputer>{
+
+class _ActionButtonStarComputer extends State<ActionButtonStarComputer> {
   bool sw = false;
-  void onPressedButton(){
+
+  void onPressedButton() {
     setState(() {
-      sw=!this.sw;
+      sw = widget.stateButton ? !this.sw : this.sw;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return  FloatingActionButton(
-      child: Icon(sw?Icons.favorite_border:Icons.favorite),
-      backgroundColor: Colors.green,
-      mini: true,
-      onPressed: onPressedButton,
+    return Container(
+      margin: const EdgeInsets.all(5.0),
+      height: 75.0,
+      width: 75.0,
+      child: RaisedButton(
+        // child:
+        padding: new EdgeInsets.all(0.0),
+        textColor: Colors.red,
+        child: Container(
+          child: Icon(
+            sw ? Icons.favorite_border : Icons.favorite,
+            size: 75.0,
+          ),
+        ),
+        onPressed: onPressedButton,
+      ),
     );
   }
 }
 // implementacion de BottomNavigatorBar
-
-
