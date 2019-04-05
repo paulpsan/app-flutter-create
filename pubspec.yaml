@@ -73,8 +73,9 @@ flutter:
   assets:
     - assets/images/Ciudad1.jpeg
     - assets/images/LaPaz1.jpg
-    - assets/images/LaPaz2.jpg
-
+    - assets/images/init.jpg
+    - assets/images/O.jpg
+    - assets/images/X.jpg
   fonts:
     - family: Handlee
       fonts:

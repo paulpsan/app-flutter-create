@@ -1,0 +1,21 @@
+[
+  {
+    "solicitudVacacionId": 49,
+    "cantidad": 1,
+    "fechaInicio": "2019-03-06T05:00:00.000+0000",
+    "fechaFin": "2019-03-06T05:00:00.000+0000",
+    "estadoSolicitudId": 3269,
+    "descripcion": "REPROGRAMACION DE VACACIÓN (CONSIDERANDO QUE EL 06/03/2019 SI ESTA PROGRAMADO Y SE MODIFICARON LOS DOS DÍAS SIGUIENTES SEGÚN NOTA DE MODIFICACIÓN DE VACACIÓN).",
+    "observacion": null,
+    "fechaRegistro": "2019-02-26T23:33:38.091+0000",
+    "estadoId": 1000,
+    "mediodia": false,
+    "turno": null,
+    "usuarioAutorizaId": 1002,
+    "usuarioApruebarhId": 1554,
+    "usuarioApruebaId": 1340,
+    "fechaAutorizacion": "2019-02-27T19:08:25.392+0000",
+    "fechaAprobacionrh": "2019-02-28T20:47:22.465+0000",
+    "fechaAprobacion": "2019-03-01T20:12:44.117+0000"
+  }
+]
