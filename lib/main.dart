@@ -40,11 +40,14 @@ class BodyWidget extends StatefulWidget {
 class _BodyWidgetState extends State<BodyWidget> {
   String _icon = "assets/images/init.jpg";
   String _turn = imgX;
+  bool _win = false;
   bool _active = false;
+  final _style = TextStyle(color: Colors.blueAccent, fontSize: 40);
   void _handleTapboxChanged() {
     setState(() {
       _icon = "assets/images/init.jpg";
       turn = imgX;
+      _win = false;
       aG = [
         ["", "", ""],
         ["", "", ""],
@@ -55,7 +58,6 @@ class _BodyWidgetState extends State<BodyWidget> {
 
   void _handleTurnChanged(String value) {
     setState(() {
-      print(turn);
       _turn = turn;
     });
   }
@@ -63,54 +65,75 @@ class _BodyWidgetState extends State<BodyWidget> {
   void _onWinner(String value) {
     setState(() {
       print(value);
+      if (value != null) {
+        _win = true;
+        _turn = value == "X" ? imgX : imgO;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Center(
-          child: Text('Tic Tac Toe!'),
-        ),
-        GestureDetector(
-          child: ABC(0, 0, false, _turn, _handleTurnChanged, _onWinner),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ABC(0, 0, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(1, 0, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(2, 0, true, _icon, _handleTurnChanged, _onWinner),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ABC(0, 1, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(1, 1, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(2, 1, true, _icon, _handleTurnChanged, _onWinner),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ABC(0, 2, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(1, 2, true, _icon, _handleTurnChanged, _onWinner),
-                ABC(2, 2, true, _icon, _handleTurnChanged, _onWinner),
-              ],
-            )
-          ],
-        ),
-        GestureDetector(
-            onTap: _handleTapboxChanged,
-            child: RaisedButton(child: Text('New Game'))),
-      ],
-    );
+    return !_win
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Center(
+                child: Text('Tic Tac Toe!', style: _style),
+              ),
+              GestureDetector(
+                child: ABC(0, 0, false, _turn, _handleTurnChanged, _onWinner),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ABC(0, 0, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(1, 0, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(2, 0, true, _icon, _handleTurnChanged, _onWinner),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ABC(0, 1, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(1, 1, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(2, 1, true, _icon, _handleTurnChanged, _onWinner),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ABC(0, 2, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(1, 2, true, _icon, _handleTurnChanged, _onWinner),
+                      ABC(2, 2, true, _icon, _handleTurnChanged, _onWinner),
+                    ],
+                  )
+                ],
+              ),
+              GestureDetector(
+                  onTap: _handleTapboxChanged,
+                  child: RaisedButton(child: Text('New Game', style: _style))),
+            ],
+          )
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Center(
+                child: Text('El Ganador Es :'),
+              ),
+              ABC(0, 0, false, _turn, _handleTurnChanged, _onWinner),
+              GestureDetector(
+                  onTap: _handleTapboxChanged,
+                  child: RaisedButton(
+                      child: Text(
+                    'New Game',
+                    style: _style,
+                  ))),
+            ],
+          );
   }
 }
 
@@ -169,10 +192,9 @@ class _ABC extends State<ABC> {
         }
       }
       print(aG);
-      var res = checkWinner(aG);
+      String res = checkWinner(aG);
       if (res != null) {
-        print("object $res");
-        widget.winner(turn);
+        widget.winner(res);
       }
     });
   }
