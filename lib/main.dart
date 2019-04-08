@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 var imgX = "assets/images/X.jpg";
-var init = "assets/images/init.jpg";
 var imgO = "assets/images/O.jpg";
 var turn = imgX;
 var aG = [
@@ -22,29 +21,7 @@ class MyApp extends StatelessWidget {
           title: Text("Tic Tac Toe"),
         ),
         body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Center(
-                child: Text('Tic Tac Toe!'),
-              ),
-              ABC(4, 4, false, turn),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RBA(0),
-                  RBA(1),
-                  RBA(2),
-                ],
-              ),
-              RaisedButton(
-                onPressed: () {
-                  init = "assets/images/init.jpg";
-                },
-                child: Text('New Game'),
-              ),
-            ],
-          ),
+          child: BodyWidget(),
           decoration: new BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/LaPaz1.jpg'),
@@ -55,17 +32,81 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class RBA extends StatelessWidget {
-  int _row;
-  RBA(this._row);
+// class RBA extends StatelessWidget {
+//   int _row;
+//   RBA(this._row);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: <Widget>[
+//         ABC(0, _row, true, init),
+//         ABC(1, _row, true, init),
+//         ABC(2, _row, true, init),
+//       ],
+//     );
+//   }
+// }
+class BodyWidget extends StatefulWidget {
+  _BodyWidgetState createState() => _BodyWidgetState();
+}
+
+class _BodyWidgetState extends State<BodyWidget> {
+  String _icon = "assets/images/init.jpg";
+  bool _active = false;
+  void _handleTapboxChanged() {
+    setState(() {
+      _icon = "assets/images/init.jpg";
+      turn = imgX;
+      aG = [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+      ];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        ABC(0, _row, true, init),
-        ABC(1, _row, true, init),
-        ABC(2, _row, true, init),
+        Center(
+          child: Text('Tic Tac Toe!'),
+        ),
+        ABC(4, 4, false, turn),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ABC(0, 0, true, _icon),
+                ABC(1, 0, true, _icon),
+                ABC(2, 0, true, _icon),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ABC(0, 1, true, _icon),
+                ABC(1, 1, true, _icon),
+                ABC(2, 1, true, _icon),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ABC(0, 2, true, _icon),
+                ABC(1, 2, true, _icon),
+                ABC(2, 2, true, _icon),
+              ],
+            )
+          ],
+        ),
+        GestureDetector(
+            onTap: _handleTapboxChanged,
+            child: RaisedButton(child: Text('New Game'))),
       ],
     );
   }
@@ -134,12 +175,14 @@ class _ABC extends State<ABC> {
   void onPressedButton() {
     setState(() {
       if (widget._state) {
+        print(widget._icon);
         if (aG[widget._row][widget._col] == "") {
           widget._icon = turn;
           aG[widget._row][widget._col] = turn == imgX ? "X" : "O";
           turn = turn == imgX ? imgO : imgX;
         }
       }
+      print(aG);
       var res = checkWinner(aG);
       if (res != null) {
         print("object $res");
